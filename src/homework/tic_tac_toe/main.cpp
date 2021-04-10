@@ -6,31 +6,64 @@ using std::cout; using std::cin; using std::string;
 
 int main() 
 {
-	TicTacToe game;
 
-	void start_game(string first_player);
-	
-	string player;
-	int position;
-	
-	cout << "X or O:  ";
-	cin >> player;
-	
-	bool game_over = true;
-	do
-	{
-		cout <<"Enter board position form 1-9: ";
-		cin >> position;
-		void display_board();
-		void mark_board(int position);
-		{
-			game_over = false;
-		}
-	}
-	while (game_over == true);
-	return 0;
+string player;
+int position;
+char opt;
+
+do 
+{
+
+    TicTacToe game;
+    
+    cout << "Enter X or O: ";
+    cin >> player;
+    game.start_game(player);
+    game.display_board();
+
+    do 
+    
+    {
+       
+    while (!(player == "X" || player == "O"))
+    
+    {
+        cout<< "Enter X or O: ";
+        cin >> player;
+        game.start_game(player);
+        game.display_board();
+    } 
+     
+        cout <<"Enter board position form 1-9: ";
+        cin >> position;
+        while(position <1 || position > 9)
+        {
+            cout<< "Enter board position form 1-9: ";
+            cin >> position;
+        }
+        game.mark_board(position);
+        game.display_board();
+    }   
+    
+    while (game.game_over() == false);
+    
+    if (game.get_winner()== "C")
+
+    {
+        cout<<"It's a tie ";
+
+    }
+    
+    else 
+    
+    cout<<"Game over!"<<"\n";
+    cout<<game.get_winner()<<" won!" <<"\n";
+    cout<<"Do you want to play again y/n : ";
+    cin>>opt;
+    
+} while (toupper(opt) =='Y');
+
+        
+    return 0;
+
 }
-
-
-
- 
