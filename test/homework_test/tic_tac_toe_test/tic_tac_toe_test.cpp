@@ -1,6 +1,7 @@
 #define CATCH_CONFIG_MAIN  // This tells Catch to provide a main() - only do this in one cpp file
 #include "catch.hpp"
 #include "tic_tac_toe.cpp"
+#include "tic_tac_toe_manager.cpp"
 
 TEST_CASE("Verify Test Configuration", "verification") {
 	REQUIRE(true == true);
@@ -77,6 +78,7 @@ TEST_CASE("Test win first column", "[X wins with 1 4 7]")
 	//X wins
 
 	REQUIRE(board.game_over() == true);
+	REQUIRE(board.get_winner() == ("X"));
 	
 }
 
@@ -98,6 +100,7 @@ TEST_CASE("Test win second column", "[X wins with 2 5 8]")
 	//X wins
 
 	REQUIRE(board.game_over() == true);
+	REQUIRE(board.get_winner() == ("X"));
 	
 }
 
@@ -119,6 +122,7 @@ TEST_CASE("Test win third column", "[X wins with 3 6 9]")
 	//X wins
 
 	REQUIRE(board.game_over() == true);
+	REQUIRE(board.get_winner() == ("X"));
 	
 }
 
@@ -140,6 +144,7 @@ TEST_CASE("Test win first row", "[X wins with 1 2 3]")
 	//X wins
 
 	REQUIRE(board.game_over() == true);
+	REQUIRE(board.get_winner() == ("X"));
 	
 }
 
@@ -161,6 +166,7 @@ TEST_CASE("Test win second row", "[X wins with 4 5 6]")
 	//X wins
 
 	REQUIRE(board.game_over() == true);
+	REQUIRE(board.get_winner() == ("X"));
 	
 }
 
@@ -182,6 +188,7 @@ TEST_CASE("Test win third row", "[X wins with 7 8 9]")
 	//X wins
 
 	REQUIRE(board.game_over() == true);
+	REQUIRE(board.get_winner() == ("X"));
 	
 }
 
@@ -203,7 +210,7 @@ TEST_CASE("Test win diagonallly from top left", "[X wins with 1 5 9]")
 	//X wins
 
 	REQUIRE(board.game_over() == true);
-	
+	REQUIRE(board.get_winner() == ("X"));
 }
 
 
@@ -225,5 +232,86 @@ TEST_CASE("Test win diagonallly from bottom left", "[X wins with 3 5 7]")
 	//X wins
 
 	REQUIRE(board.game_over() == true);
+	REQUIRE(board.get_winner() == ("X"));
+	
+}
+
+TEST_CASE("Test save game and get winner total")
+{
+	TicTacToe board;
+	TicTacToeManager manager;
+
+	
+	board.start_game("X");
+
+	REQUIRE(board.game_over() == false);
+	board.mark_board(2);//X
+	REQUIRE(board.game_over() == false);
+	board.mark_board(7);//O
+	REQUIRE(board.game_over() == false);
+	board.mark_board(5);//X
+	REQUIRE(board.game_over() == false);
+	board.mark_board(3);//O
+	REQUIRE(board.game_over() == false);
+	board.mark_board(8);//X
+	//X wins
+
+	REQUIRE(board.game_over() == true);
+	REQUIRE(board.get_winner() == ("X"));
+
+	manager.save_game(board);
+	
+	
+	board.start_game("O");
+
+	REQUIRE(board.game_over() == false);
+	board.mark_board(2);//O
+	REQUIRE(board.game_over() == false);
+	board.mark_board(7);//X
+	REQUIRE(board.game_over() == false);
+	board.mark_board(5);//O
+	REQUIRE(board.game_over() == false);
+	board.mark_board(3);//X
+	REQUIRE(board.game_over() == false);
+	board.mark_board(8);//O
+	//O wins
+
+	REQUIRE(board.game_over() == true);
+	REQUIRE(board.get_winner() == ("O"));
+
+	manager.save_game(board);
+
+	board.start_game("X");
+	
+	board.mark_board(1);
+	REQUIRE(board.game_over() == false);
+	board.mark_board(2);
+	REQUIRE(board.game_over() == false);
+	board.mark_board(3);
+	REQUIRE(board.game_over() == false);
+	board.mark_board(4);
+	REQUIRE(board.game_over() == false);
+	board.mark_board(5);
+	REQUIRE(board.game_over() == false);
+	board.mark_board(7);
+	REQUIRE(board.game_over() == false);
+	board.mark_board(6);
+	REQUIRE(board.game_over() == false);
+	board.mark_board(9);
+	REQUIRE(board.game_over() == false);
+	board.mark_board(8);
+
+
+	REQUIRE(board.game_over() == true);
+	REQUIRE(board.get_winner() == "C");
+
+	manager.save_game(board);
+	
+	int o, x, t;
+	manager.get_winner_total(o, x, t);
+
+	REQUIRE(x == 1);
+	REQUIRE(o == 1);
+	REQUIRE(t == 1);
 	
 }

@@ -28,7 +28,6 @@ bool TicTacToe::game_over()
 void TicTacToe::start_game(string first_player)
 {
     
-    first_player == "X" || first_player == "x" || first_player == "O" ||first_player == "o";
     player = first_player;
     
     clear_board();
@@ -48,12 +47,6 @@ string TicTacToe::get_player()const
     return player;
 }
 
-void TicTacToe::display_board()const
-{
-  cout<<pegs[0]<<"|"<<pegs[1]<<"|"<<pegs[2]<<"|"<<"\n";
-  cout<<pegs[3]<<"|"<<pegs[4]<<"|"<<pegs[5]<<"|"<<"\n";
-  cout<<pegs[6]<<"|"<<pegs[7]<<"|"<<pegs[8]<<"|"<<"\n";
-}
 
 void TicTacToe::set_next_player()
 {
@@ -184,11 +177,41 @@ void TicTacToe::set_winner()
 {
         if (player == "X")
         {
-                winner = 'X';
+                winner = "O";
         }
         else
         {
-                winner = 'O';
+                winner = "X";
+        }
+}
+
+ostream & operator<<(std::ostream & out, const TicTacToe & d)
+{
+        if (d.pegs.size() == 9)
+        {
+                for (int i = 0; i < 9; i += 3)
+                {
+                        out << d.pegs[i] << "|" << d.pegs[i + 1] << "|" << d.pegs[i + 2] << "|" << "\n";
+                }
         }
 
+        return out;
+}
+
+istream & operator>>(std::istream & in,  TicTacToe & p)
+{
+
+        if (p.pegs.size() == 9)
+                {
+                        int position;
+                        cout << "\n";
+                        cout << "Enter board position from 1-9: " ;
+                        in >> position;
+                        cout << "\n";
+                        p.mark_board(position);
+                        cout << "\n";
+
+                }
+        
+        return in;
 }
