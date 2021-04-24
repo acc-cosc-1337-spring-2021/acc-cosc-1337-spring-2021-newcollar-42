@@ -1,6 +1,7 @@
 //cpp
 #include "tic_tac_toe.h"
-
+#include<iostream>
+using std::cout; using std::cin;
 using namespace std;
 
 bool TicTacToe::game_over()
@@ -62,7 +63,7 @@ void TicTacToe::set_next_player()
 
 bool TicTacToe::check_board_full()const
 {
-    for(auto i = 0; i < 9; i++)
+    for (size_t i = 0; i < pegs.size(); ++i) 
     {
         if(pegs[i] == " ")
         {
@@ -91,87 +92,21 @@ string TicTacToe::get_winner() const
     return winner;
 }
 
-
 bool TicTacToe::check_column_win()
 {
-        if (pegs[0] == "X" && pegs[3] == "X" && pegs[6] == "X")
-        {
-                return true;
-        }
-        else if (pegs[0] == "O" && pegs[3] == "O" && pegs[6] == "O")
-        {
-                return true;
-        }
-        else if (pegs[1] == "X" && pegs[4] == "X" && pegs[7] == "X")
-        {
-                return true;
-        }
-        else if (pegs[1] == "O" && pegs[4] == "O" && pegs[7] == "O")
-        {
-                return true;
-        }
-        else if (pegs[2] == "X" && pegs[5] == "X" && pegs[8] == "X") 
-        {
-                return true;
-        }
-        else if (pegs[2] == "O" && pegs[5] == "O" && pegs[8] == "O")
-        {
-                return true;
-        }
-
         return false;
 }
 
 bool TicTacToe::check_row_win()
 {
-        if (pegs[0] == "X" && pegs[1] == "X" && pegs[2] == "X")
-        {
-                return true;
-        }
-        else if (pegs[0] == "O" && pegs[1] == "O" && pegs[2] == "O")
-        {
-                return true;
-        }
-        else if (pegs[3] == "X" && pegs[4] == "X" && pegs[5] == "X")
-        {
-                return true;
-        }
-        else if (pegs[3] == "O" && pegs[4] == "O" && pegs[5] == "O")
-        {
-                return true;
-        }
-        else if (pegs[6] == "X" && pegs[7] == "X" && pegs[8] == "X")
-        {
-                return true;
-        }
-        else if (pegs[6] == "O" && pegs[7] == "O" && pegs[8] == "O")
-        {
-                return true;
-        }
         return false;
 }
 
 bool TicTacToe::check_diagonal_win()
 {
-        if (pegs[0] == "X" && pegs[4] == "X" && pegs[8] == "X")
-        {
-                return true;
-        }
-        else if (pegs[0] == "O" && pegs[4] == "O" && pegs[8] == "O")
-        {
-                return true;
-        }
-        else if (pegs[2] == "X" && pegs[4] == "X" && pegs[6] == "X")
-        {
-                return true;
-        }
-        else if (pegs[2] == "O" && pegs[4] == "O" && pegs[6] == "O")
-        {
-                return true;
-        }
-        
         return false;
 }
+
 
 void TicTacToe::set_winner()
 {
@@ -185,7 +120,7 @@ void TicTacToe::set_winner()
         }
 }
 
-ostream & operator<<(std::ostream & out, const TicTacToe & d)
+std::ostream & operator<<(std::ostream & out, const TicTacToe & d)
 {
         if (d.pegs.size() == 9)
         {
@@ -194,24 +129,42 @@ ostream & operator<<(std::ostream & out, const TicTacToe & d)
                         out << d.pegs[i] << "|" << d.pegs[i + 1] << "|" << d.pegs[i + 2] << "|" << "\n";
                 }
         }
+        else if(d.pegs.size() == 16)
+        {
+                for (int i = 0; i < 16; i += 4)
+                {
+                        out << d.pegs[i] << "|" << d.pegs[i + 1] << "|" << d.pegs[i + 2] << "|" << d.pegs[i + 3]<< "\n";
+                }
+        }
 
         return out;
 }
 
-istream & operator>>(std::istream & in,  TicTacToe & p)
+std::istream & operator>>(std::istream & in,  TicTacToe & p)
 {
-
         if (p.pegs.size() == 9)
                 {
                         int position;
                         cout << "\n";
-                        cout << "Enter board position from 1-9: " ;
+                        cout << "Enter board position from 1-9: ";
                         in >> position;
                         cout << "\n";
                         p.mark_board(position);
                         cout << "\n";
-
+                }
+                else if (p.pegs.size() == 16)
+                {
+                        int position;
+                        cout << "\n";
+                        cout << "Enter board position from 1-16:  ";
+                        in >> position;
+                        cout << "\n";
+                        p.mark_board(position);
+                        cout << "\n";
                 }
         
+        
+
         return in;
 }
+

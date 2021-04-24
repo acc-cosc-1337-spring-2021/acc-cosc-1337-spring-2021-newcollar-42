@@ -1,14 +1,19 @@
 #include<iostream>
 #include<string>
+#include<memory>
 using std::cout; using std::cin; using std::string;
+using std::unique_ptr; using std::make_unique;
 #include "tic_tac_toe.h"
 #include "tic_tac_toe_manager.h"
+#include "tic_tac_toe_3.h"
+#include "tic_tac_toe_4.h"
 
 int main()
 {
   
        
-        TicTacToeManager manager;
+
+        unique_ptr<TicTacToeManager>manager= make_unique<TicTacToeManager>();
         string player;
         auto option = 'Y';
         
@@ -16,7 +21,24 @@ int main()
         do
         
         {
-                TicTacToe game;
+                int game_type;
+                cout << "\tGame Menu\t\n";
+                cout << "  1.Enter 1 to play 3x3 Tic Tac Toe\n  2.Enter 2 to play 4x4 Tic Tac Toe\n";
+                cin >> game_type;
+                unique_ptr<TicTacToe> game;
+                
+                if (game_type == 1)
+                {
+                        game =  make_unique<TicTacToe3>();
+                        
+                        
+                }
+                else if (game_type == 2)
+                {
+                        game = make_unique<TicTacToe4>();
+                        
+                        
+                }
                 while (!(player == "X" || player == "O"))
                 {
                         cout<<"Enter X or O: ";
@@ -24,24 +46,20 @@ int main()
                 
                 }
                 
-                game.start_game(player);
+                game->start_game(player);
 
                 do
                 {
-                        cin >> game;
-                        cout << game;
+                        cin >>*game;
+                        cout <<*game;
            
                 }
-                while(game.game_over() == false);
+                while(!(game-> game_over()));
 
-                cout << "\nGame Over! \n";
-                player = "";
-                manager.save_game(game);
+              
+               
+                manager->save_game(game);
                 
-
-                int o, x, t;
-                manager.get_winner_total(x, o, t);
-                cout << manager;
 
                 cout << "Do you want to play to another game (y/n): ";
 
@@ -49,7 +67,9 @@ int main()
 
                 cout << "\n";
 
-        } while (toupper(option) =='Y');
+        }  while(option == 'y');
+
+        cout <<*manager;
 
 
         return 0;
