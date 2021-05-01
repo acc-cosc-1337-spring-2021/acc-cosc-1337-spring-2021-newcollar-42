@@ -1,9 +1,9 @@
 //h
 #include "tic_tac_toe.h"
-#include<string>
+
 #include<iostream>
-#include<vector>
-#ifndef TICTACTOE3_H //Header Guard
+
+#ifndef TICTACTOE3_H 
 #define TICTACTOE3_H
 
 class TicTacToe3:public TicTacToe
@@ -12,6 +12,7 @@ class TicTacToe3:public TicTacToe
 
 public:
         TicTacToe3():TicTacToe(3){}
+        TicTacToe3(std::vector<std::string>p, std::string winner);
         
         
 private:
