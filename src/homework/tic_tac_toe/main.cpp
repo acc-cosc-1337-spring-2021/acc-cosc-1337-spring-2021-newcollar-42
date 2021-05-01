@@ -7,6 +7,7 @@ using std::unique_ptr; using std::make_unique;
 #include "tic_tac_toe_manager.h"
 #include "tic_tac_toe_3.h"
 #include "tic_tac_toe_4.h"
+#include "tic_tac_toe_data.h"
 
 int main()
 {
@@ -14,8 +15,12 @@ int main()
        
 
         unique_ptr<TicTacToeManager>manager= make_unique<TicTacToeManager>();
+        unique_ptr<TicTacToeData>data= make_unique<TicTacToeData>();
+
         string player;
         auto option = 'Y';
+        
+       
         
         
         do
@@ -23,17 +28,17 @@ int main()
         {
                 int game_type;
                 cout << "\tGame Menu\t\n";
-                cout << "  1.Enter 1 to play 3x3 Tic Tac Toe\n  2.Enter 2 to play 4x4 Tic Tac Toe\n";
+                cout << "  1.Enter 3 to play 3x3 Tic Tac Toe\n  2.Enter 4 to play 4x4 Tic Tac Toe\n";
                 cin >> game_type;
                 unique_ptr<TicTacToe> game;
                 
-                if (game_type == 1)
+                if (game_type == 3)
                 {
                         game =  make_unique<TicTacToe3>();
                         
                         
                 }
-                else if (game_type == 2)
+                else if (game_type == 4)
                 {
                         game = make_unique<TicTacToe4>();
                         
@@ -70,7 +75,8 @@ int main()
         }  while(option == 'y');
 
         cout <<*manager;
-
+  
+        
 
         return 0;
 }
