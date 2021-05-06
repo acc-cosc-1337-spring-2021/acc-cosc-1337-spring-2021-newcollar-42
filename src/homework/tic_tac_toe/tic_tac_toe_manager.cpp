@@ -62,8 +62,6 @@ std::ostream & operator<<(std::ostream & out, const TicTacToeManager & manager)
                 {
                         out << "\n";
                         out << *game;
-                        string w = game->get_winner();
-                        out << "\nThe winner is:  " << w << "\n";
 
                 }
                 out << "\n";

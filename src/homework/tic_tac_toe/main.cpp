@@ -11,18 +11,12 @@ using std::unique_ptr; using std::make_unique;
 
 int main()
 {
-  
-       
-
-        unique_ptr<TicTacToeManager>manager= make_unique<TicTacToeManager>();
-        unique_ptr<TicTacToeData>data= make_unique<TicTacToeData>();
-
+      
+        TicTacToeData data;
+        TicTacToeManager manager(data);       
         string player;
         auto option = 'Y';
-        
        
-        
-        
         do
         
         {
@@ -34,21 +28,16 @@ int main()
                 
                 if (game_type == 3)
                 {
-                        game =  make_unique<TicTacToe3>();
-                        
-                        
+                        game =  make_unique<TicTacToe3>();               
                 }
                 else if (game_type == 4)
                 {
-                        game = make_unique<TicTacToe4>();
-                        
-                        
+                        game = make_unique<TicTacToe4>();             
                 }
                 while (!(player == "X" || player == "O"))
                 {
                         cout<<"Enter X or O: ";
                         cin>>player;
-                
                 }
                 
                 game->start_game(player);
@@ -56,27 +45,18 @@ int main()
                 do
                 {
                         cin >>*game;
-                        cout <<*game;
-           
+                        cout <<*game;         
                 }
                 while(!(game-> game_over()));
-
-              
-               
-                manager->save_game(game);
+                manager.save_game(game);
                 
-
                 cout << "Do you want to play to another game (y/n): ";
-
                 cin >> option;
-
                 cout << "\n";
 
         }  while(option == 'y');
 
-        cout <<*manager;
-  
-        
+        cout <<manager;
 
         return 0;
 }
