@@ -9,7 +9,7 @@ class TicTacToe4 :public TicTacToe
 
 public:
         TicTacToe4():TicTacToe(4) {}
-        TicTacToe4(std::vector<std::string>p, std::string winner);
+        TicTacToe4(std::vector<std::string>p, std::string w):TicTacToe(p, w){};
        
        
 private:
